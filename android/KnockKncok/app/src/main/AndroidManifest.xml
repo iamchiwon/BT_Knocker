@@ -2,14 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="in.makecube.knocker.knockkncok">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +20,20 @@
 
         <service
             android:name=".service.BTConnector"
-            android:exported="false"></service>
+            android:exported="false"/>
+            <!--android:process="in.makecube.knocker.knockkncok.background" />-->
+
+        <receiver android:name=".receiver.BTSignalReceiver">
+            <intent-filter>
+                <action android:name="in.makecube.knocker.KNOCK_MESSAGE" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".activity.MessageActivity"
+            android:theme="@style/AppThemeDialog" />
     </application>
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
 </manifest>

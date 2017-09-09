@@ -7,10 +7,9 @@
 2. Arduino 측의 버튼을 누르면
 3. Android 측에서 팝업이 노출된다.
 
-## Arduino ![Download](https://png.icons8.com/playstore/color/24)
+## Arduino
 
-* Download : 
-<a href = "https://play.google.com/store/apps/details?id=in.makecube.knocker.knockkncok" target="_blank" >![Download](https://png.icons8.com/playstore/color/24)</a>
+* ![](http://coverville.com/wp-content/uploads/2016/05/sm_subscribe_gooPlay.png) [Download app on google play](https://play.google.com/store/apps/details?id=in.makecube.knocker.knockkncok)
 
 ### Devices
 

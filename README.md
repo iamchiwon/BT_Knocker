@@ -1,4 +1,4 @@
-# 호출기 (KnockKncok)
+# ![makecube](makecube.png) 호출기 (KnockKncok)
 > Arduino 와 Android 를 연동하여 원격 호출기를 만든다
 
 ## 개요
@@ -34,3 +34,7 @@
 ### Screenshot
 
 ![Screenshot](screenshot.png)
+
+## License
+
+KnockKncok is available under the MIT license. See the [LICENSE](LICENSE) file for more info.

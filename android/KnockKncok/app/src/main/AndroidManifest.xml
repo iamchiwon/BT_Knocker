@@ -3,6 +3,8 @@
     package="in.makecube.knocker.knockkncok">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,8 +22,8 @@
 
         <service
             android:name=".service.BTConnector"
-            android:exported="false"/>
-            <!--android:process="in.makecube.knocker.knockkncok.background" />-->
+            android:exported="false" />
+        <!--android:process="in.makecube.knocker.knockkncok.background" />-->
 
         <receiver android:name=".receiver.BTSignalReceiver">
             <intent-filter>
@@ -33,7 +35,5 @@
             android:name=".activity.MessageActivity"
             android:theme="@style/AppThemeDialog" />
     </application>
-
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
 </manifest>

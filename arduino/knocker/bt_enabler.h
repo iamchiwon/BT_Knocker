@@ -46,3 +46,20 @@ ERROR:
   return false;
 }
 
+void setupBluetoothUntilSuccess() {
+  bool btSetupSuccess = false;
+  while ( !btSetupSuccess ) {
+    btSetupSuccess = btSetUp();
+    if (btSetupSuccess) {
+      Serial.println("OK");
+      break;
+    }
+    Serial.println("FAIL");
+    delay(5000); //5s
+  }
+  return btSetupSuccess;
+}
+
+void sendSignal(String msg) {
+  BT.println(msg);
+}

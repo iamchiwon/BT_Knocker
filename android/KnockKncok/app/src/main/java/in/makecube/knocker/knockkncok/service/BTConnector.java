@@ -17,6 +17,7 @@ import java.util.UUID;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class BTConnector extends Service {
     public static final UUID KNOCK_BT_UUID = UUID.randomUUID();
@@ -65,8 +66,12 @@ public class BTConnector extends Service {
                                     });
                             return receive;
                         })
+                        .subscribeOn(Schedulers.newThread())
                         .subscribe(message -> sendMessage(message),
-                                error -> sendStatus(BT_STATUS_DISCONNECTED))
+                                error -> {
+                                    error.printStackTrace();
+                                    sendStatus(BT_STATUS_DISCONNECTED);
+                                })
 
         );
     }

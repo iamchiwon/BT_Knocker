@@ -1,4 +1,4 @@
-# ![makecube](makecube.png) 호출기 (KnockKncok)
+# ![makecube](makecube.png) 호출기 (KnockKnock)
 > Arduino 와 Android 를 연동하여 원격 호출기를 만든다
 
 ## 개요
@@ -9,7 +9,7 @@
 
 ## Arduino
 
-* ![](http://coverville.com/wp-content/uploads/2016/05/sm_subscribe_gooPlay.png) [Download app on google play](https://play.google.com/store/apps/details?id=in.makecube.knocker.knockkncok)
+* ![](http://coverville.com/wp-content/uploads/2016/05/sm_subscribe_gooPlay.png) [Download](https://play.google.com/store/apps/details?id=in.makecube.knocker.knockkncok)
 
 ### Devices
 

@@ -24,7 +24,7 @@ public class MessageActivity extends Activity {
     @BindView(R.id.closeButton)
     Button closeButton;
 
-    private CompositeDisposable disposeBag;
+    private CompositeDisposable disposeBag = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,6 @@ public class MessageActivity extends Activity {
         String message = convertCodeToMessage(code);
         messageTextView.setText(message);
 
-        disposeBag = new CompositeDisposable();
         disposeBag.add(
                 Observable.interval(1, TimeUnit.SECONDS)
                         .map(s -> (int) (CLOSE_SECONDS - s))
@@ -56,11 +55,7 @@ public class MessageActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        if (disposeBag != null) {
-            disposeBag.dispose();
-            disposeBag = null;
-        }
+        disposeBag.dispose();
     }
 
     @OnClick(R.id.closeButton)

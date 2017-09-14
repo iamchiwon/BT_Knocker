@@ -20,10 +20,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".activity.MessageActivity"
+            android:theme="@style/AppThemeDialog" />
+
         <service
             android:name=".service.BTConnector"
-            android:exported="false" />
-        <!--android:process="in.makecube.knocker.knockkncok.background" />-->
+            android:exported="false"/>
 
         <receiver android:name=".receiver.BTSignalReceiver">
             <intent-filter>
@@ -31,9 +34,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".activity.MessageActivity"
-            android:theme="@style/AppThemeDialog" />
     </application>
 
 </manifest>

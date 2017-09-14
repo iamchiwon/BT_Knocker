@@ -12,6 +12,6 @@
     <string name="status_connecting">연결 중입니다</string>
     <string name="status_connected">연결되었습니다</string>
     <string name="status_disconnected">연결이 끊어졌습니다\n재연결하기를 눌러주세요</string>
-    <string name="unkown_error">알 수 없는 오류입니다</string>
+    <string name="unkown_error">알 수 없는 오류가 발생하였습니다</string>
     <string name="close_countdown">닫기 (%d)</string>
 </resources>

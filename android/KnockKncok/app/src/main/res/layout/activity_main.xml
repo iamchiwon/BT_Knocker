@@ -35,7 +35,6 @@
         android:text="@string/reconnect"
         android:textColor="@color/colorIcon"
         android:textSize="20dp"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:textStyle="bold" />
 
 </RelativeLayout>

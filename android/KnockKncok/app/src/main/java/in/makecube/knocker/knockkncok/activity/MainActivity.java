@@ -257,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.startActivity(messageIntent);
 
                     highlightIndex = i;
+                    notifyDataSetChanged();
                 });
                 builder.setNegativeButton("아니오", (dialog, which) -> dialog.dismiss());
                 builder.show();
@@ -269,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
                     sendBroadcast(sendIntent);
 
                     highlightIndex = i;
+                    notifyDataSetChanged();
 
                     Snackbar.make(buttonReconnect, "호출하였습니다.", Snackbar.LENGTH_LONG).show();
                 });

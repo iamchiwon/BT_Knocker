@@ -37,6 +37,17 @@
 
 ![Screenshot](screenshot.png)
 
+## Version
+
+1. v1.0 (branch: connector)
+  - Bluetooth Connection
+  - Background Service
+  - Call Receive from Arduino
+2. v1.1 (branch: master)
+  - UI version
+  - DEMO Scenario
+  - Pre-Designed Prototype
+
 ## License
 
 KnockKncok is available under the MIT license. See the [LICENSE](LICENSE) file for more info.

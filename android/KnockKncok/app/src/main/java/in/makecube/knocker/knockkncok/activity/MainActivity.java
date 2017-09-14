@@ -8,13 +8,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -27,6 +35,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,19 +44,24 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.buttonReconnect)
     Button buttonReconnect;
-    @BindView(R.id.textStatus)
-    TextView textStatus;
+    @BindView(R.id.listView)
+    ListView listView;
 
     private long backPressedAt;
     private BehaviorSubject<Integer> stateSubject = BehaviorSubject.createDefault(BTConnector.BT_STATUS_READY);
     private BroadcastReceiver statusReceiver = null;
     private CompositeDisposable disposeBag = new CompositeDisposable();
 
+    private ListAdapter listAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        listAdapter = new ListAdapter();
+        listView.setAdapter(listAdapter);
 
         disposeBag.add(
                 stateSubject
@@ -64,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                             return getString(R.string.unkown_error);
                         })
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(text -> textStatus.setText(text))
+                        .subscribe(text -> Snackbar.make(buttonReconnect, text, Snackbar.LENGTH_LONG).show())
         );
 
 
@@ -165,6 +180,117 @@ public class MainActivity extends AppCompatActivity {
         if (statusReceiver != null) {
             unregisterReceiver(statusReceiver);
             statusReceiver = null;
+        }
+    }
+
+    ////////////////////////////
+
+    @AllArgsConstructor
+    @Data
+    class Patient {
+        String name;
+        String division;
+    }
+
+    class ListAdapter extends BaseAdapter {
+
+        List<Patient> patients;
+        int highlightIndex = -1;
+
+        public ListAdapter() {
+            patients = new ArrayList<>();
+            patients.add(new Patient("신유경", "OS"));
+            patients.add(new Patient("김지연", "GS"));
+            patients.add(new Patient("장민경", "OS"));
+            patients.add(new Patient("박용덕", "OBGY"));
+            patients.add(new Patient("김호수", "OS"));
+            patients.add(new Patient("신유경", "OS"));
+            patients.add(new Patient("김지연", "GS"));
+            patients.add(new Patient("장민경", "OS"));
+            patients.add(new Patient("박용덕", "OBGY"));
+            patients.add(new Patient("김호수", "OS"));
+        }
+
+        @Override
+        public int getCount() {
+            return patients.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return patients.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return getItem(i).hashCode();
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            View row = view;
+
+            if (row == null) {
+                LayoutInflater inflator = LayoutInflater.from(viewGroup.getContext());
+                row = inflator.inflate(R.layout.list_item_layout, viewGroup, false);
+
+                ViewHolder vh = new ViewHolder();
+                vh.setName(row.findViewById(R.id.name));
+                vh.setDivision(row.findViewById(R.id.division));
+                vh.setLocation(row.findViewById(R.id.location));
+                vh.setCall(row.findViewById(R.id.call));
+
+                row.setTag(vh);
+            }
+
+            ViewHolder vh = (ViewHolder) row.getTag();
+            Patient p = (Patient) getItem(i);
+
+            vh.getName().setText(p.getName());
+            vh.getDivision().setText(p.getDivision());
+            vh.getLocation().setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("환자 위치를 조회하시겠습니까?");
+                builder.setPositiveButton("예", (dialog, which) -> {
+                    Intent messageIntent = new Intent(MainActivity.this, MessageActivity.class);
+                    messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    MainActivity.this.startActivity(messageIntent);
+
+                    highlightIndex = i;
+                });
+                builder.setNegativeButton("아니오", (dialog, which) -> dialog.dismiss());
+                builder.show();
+            });
+            vh.getCall().setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("환자를 호출하시겠습니까?");
+                builder.setPositiveButton("예", (dialog, which) -> {
+                    Intent sendIntent = new Intent(BTConnector.BROADCAST_MESSAGE_CALL);
+                    sendBroadcast(sendIntent);
+
+                    highlightIndex = i;
+
+                    Snackbar.make(buttonReconnect, "호출하였습니다.", Snackbar.LENGTH_LONG).show();
+                });
+                builder.setNegativeButton("아니오", (dialog, which) -> dialog.dismiss());
+                builder.show();
+            });
+
+            if(i == highlightIndex) {
+                row.setBackgroundColor(0xFFFF0000);
+            } else {
+                row.setBackgroundColor(0xFFFFFFFF);
+            }
+
+            return row;
+        }
+
+        @Data
+        class ViewHolder {
+            TextView name;
+            TextView division;
+            Button location;
+            Button call;
         }
     }
 }

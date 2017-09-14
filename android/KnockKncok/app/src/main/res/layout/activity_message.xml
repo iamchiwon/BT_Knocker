@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,37 +10,21 @@
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="#ff0000"
-        android:orientation="vertical">
+        android:background="@android:color/background_light"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
-            android:text="@string/dialog_title"
-            android:textColor="@color/colorIcon"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/messageTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorIcon"
-            android:padding="20dp"
-            android:text="MESSAGE"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="13dp" />
+            android:layout_height="500dp"
+            android:src="@drawable/map_location" />
 
         <Button
             android:id="@+id/closeButton"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/colorSecondaryText"
+            android:background="@android:color/darker_gray"
             android:text="@string/close"
             android:textColor="@color/colorIcon"
             android:textSize="15dp" />

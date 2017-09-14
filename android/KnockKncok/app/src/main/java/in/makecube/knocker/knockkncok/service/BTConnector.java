@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
@@ -29,14 +30,15 @@ public class BTConnector extends Service {
     public static final String CONNECTABLE_DEVICE_NAME = "KNOCKER_BT";
     public static final String BROADCAST_MESSAGE_STATUS = "in.makecube.knocker.BLUETOOTH_STATE";
     public static final String BROADCAST_MESSAGE_MESSAGE = "in.makecube.knocker.KNOCK_MESSAGE";
+    public static final String BROADCAST_MESSAGE_CALL = "in.makecube.knocker.KNOCK_CALL";
     public static final int BT_STATUS_READY = 0;
     public static final int BT_STATUS_CONNECTING = 1;
     public static final int BT_STATUS_CONNECTED = 2;
     public static final int BT_STATUS_DISCONNECTED = 3;
     private final String TAG = BTConnector.class.getSimpleName();
+    BroadcastReceiver callerReceiver;
     private CompositeDisposable disposable = new CompositeDisposable();
     private BluetoothAdapter btAdapter;
-
     private BluetoothSocket deviceSocket;
 
     @Nullable
@@ -95,6 +97,8 @@ public class BTConnector extends Service {
                                 })
 
         );
+
+        registCallerReceiver();
     }
 
     private Observable<BluetoothDevice> searchDevice(Context context, String name) {
@@ -135,10 +139,10 @@ public class BTConnector extends Service {
             }
         }
 
+        if (connectableDevice == null) return searchDevice(context, name);
+
         return Observable.just(connectableDevice);
     }
-
-
 
     private BluetoothSocket getSocket(BluetoothDevice device) throws IOException {
         final UUID KNOCK_BT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -155,6 +159,7 @@ public class BTConnector extends Service {
     @Override
     public void onDestroy() {
         Log.d(TAG, "Service onDestroy");
+        unregistCallReceiver();
         if (deviceSocket != null) {
             try {
                 deviceSocket.close();
@@ -164,6 +169,26 @@ public class BTConnector extends Service {
         }
         disposable.dispose();
         super.onDestroy();
+    }
+
+    private void registCallerReceiver() {
+        callerReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                try {
+                    OutputStream out = deviceSocket.getOutputStream();
+                    out.write('B');
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        registerReceiver(callerReceiver, new IntentFilter(BROADCAST_MESSAGE_CALL));
+    }
+
+    private void unregistCallReceiver() {
+        if (callerReceiver == null) return;
+        unregisterReceiver(callerReceiver);
     }
 
     private void sendStatus(int status) {

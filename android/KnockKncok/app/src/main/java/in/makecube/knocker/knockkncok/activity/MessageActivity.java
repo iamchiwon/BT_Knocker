@@ -38,15 +38,15 @@ public class MessageActivity extends Activity {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(text -> closeButton.setText(text))
             );
-        }
 
-        disposeBag.add(
-                Observable.interval(1, TimeUnit.SECONDS)
-                        .map(s -> (int) (CLOSE_SECONDS - s))
-                        .filter(s -> s == 0)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(s -> finish())
-        );
+            disposeBag.add(
+                    Observable.interval(1, TimeUnit.SECONDS)
+                            .map(s -> (int) (CLOSE_SECONDS - s))
+                            .filter(s -> s == 0)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(s -> finish())
+            );
+        }
     }
 
     @Override

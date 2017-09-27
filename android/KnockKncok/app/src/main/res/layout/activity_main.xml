@@ -8,87 +8,68 @@
     tools:context="in.makecube.knocker.knockkncok.activity.MainActivity">
 
 
-    <Button
+    <ImageView
         android:id="@+id/buttonReconnect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/darker_gray"
-        android:text="@string/reconnect"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="12sp"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/title2" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorDivider"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorTitleBackground"
         android:orientation="horizontal"
-        android:weightSum="4"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="@+id/listView"
-        app:layout_constraintRight_toRightOf="@+id/listView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonReconnect">
 
         <TextView
-            android:id="@+id/textView7"
-            android:layout_width="0dp"
+            android:id="@+id/textView4"
+            android:layout_width="105dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:width="0dp"
             android:gravity="center"
             android:text="사용환자"
-            android:textColor="@color/colorPrimaryText"
-            android:textColorLink="@color/colorPrimaryText"
-            android:textStyle="bold" />
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="105dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="진료과"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="0dp"
+            android:layout_width="105dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:width="0dp"
             android:gravity="center"
-            android:text="진료과"
-            android:textColor="@color/colorPrimaryText"
-            android:textColorLink="@color/colorPrimaryText"
-            android:textStyle="bold" />
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:width="0dp"
-            android:gravity="center"
-            android:text="환자관리"
-            android:textColor="@color/colorPrimaryText"
-            android:textColorLink="@color/colorPrimaryText"
-            android:textStyle="bold" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
         android:background="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

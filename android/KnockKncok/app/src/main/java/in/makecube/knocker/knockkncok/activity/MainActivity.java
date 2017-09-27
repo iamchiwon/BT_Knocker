@@ -17,9 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jakewharton.rxbinding2.view.RxView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.buttonReconnect)
-    Button buttonReconnect;
+    ImageView buttonReconnect;
     @BindView(R.id.listView)
     ListView listView;
 
@@ -59,9 +62,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        listAdapter = new ListAdapter();
-        listView.setAdapter(listAdapter);
 
         disposeBag.add(
                 stateSubject
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                         .subscribe(text -> Snackbar.make(buttonReconnect, text, Snackbar.LENGTH_LONG).show())
         );
 
-
         disposeBag.add(
                 Observable.interval(3, TimeUnit.SECONDS)
                         .map(n -> isServiceRunning(BTConnector.class))
@@ -93,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
                             startService(serviceIntent());
                         })
         );
+
+        listAdapter = new ListAdapter();
+        listView.setAdapter(listAdapter);
 
         registerReceiver();
         checkBluetooth();
@@ -209,6 +211,11 @@ public class MainActivity extends AppCompatActivity {
             patients.add(new Patient("장민경", "OS"));
             patients.add(new Patient("박용덕", "OBGY"));
             patients.add(new Patient("김호수", "OS"));
+            patients.add(new Patient("신유경", "OS"));
+            patients.add(new Patient("김지연", "GS"));
+            patients.add(new Patient("장민경", "OS"));
+            patients.add(new Patient("박용덕", "OBGY"));
+            patients.add(new Patient("김호수", "OS"));
         }
 
         @Override
@@ -278,10 +285,12 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
             });
 
-            if(i == highlightIndex) {
-                row.setBackgroundColor(0xFFFF0000);
+            if (i == highlightIndex) {
+                row.setBackgroundColor(0xFF65D0BC);
+                vh.getName().setTextColor(0xFFFFFFFF);
             } else {
                 row.setBackgroundColor(0xFFFFFFFF);
+                vh.getName().setTextColor(0xFF585858);
             }
 
             return row;
